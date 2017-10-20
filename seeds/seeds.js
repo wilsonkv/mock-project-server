@@ -4,21 +4,23 @@ if (process.env.NODE_ENV !== 'production') {
 
 const clearDB = require('../lib/clearDB');
 
-const Company = require('../models/company');
+const Location = require('../models/location');
 const User = require('../models/user');
 
 clearDB().then(async () => {
-  const company = await Company.create({ name: 'Cognizant' });
+  const location = await Location.create({ name: 'Cochin' });
 
   const user = await User.create({
     firstName: 'Tom',
     lastName: 'Jerry',
-    companyId: company.id,
+    companyId: location.id,
     email: 'tom@example.com',
     password: 'password',
+    isAdmin: true,
+    isActive: true
   });
 
-  user.company = company;
+  user.location = location;
 
   await process.exit();
 });

@@ -12,7 +12,7 @@ module.exports = {
   },
 
   authenticate: async credentials => {
-    const user = (await query('select * from "users" where "email" = ($1)', [
+    const user = (await query('select * from "users" where "email" = ($1) and "isActive" = true', [
       credentials.email,
     ])).rows[0];
 
@@ -44,13 +44,15 @@ module.exports = {
       return Promise.resolve({ error: 'Email has already been taken' });
     } else {
       const userResponse = (await query(
-        'insert into "users"("firstName", "lastName", "companyId", "email", "passwordDigest") values ($1, $2, $3, $4, $5) returning *',
+        'insert into "users"("firstName", "lastName", "locationId", "email", "passwordDigest", "isAdmin", "isActive") values ($1, $2, $3, $4, $5, $6, $7) returning *',
         [
           properties.firstName,
           properties.lastName,
           properties.companyId,
           properties.email,
           hash,
+          properties.isAdmin,
+          properties.isActive
         ]
       )).rows[0];
       return userResponse;

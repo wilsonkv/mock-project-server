@@ -13,8 +13,7 @@ exports.create = async (req, res, next) => {
       return res.json(user);
     }
     const serializedUser = await serializeUser(user);
-    const token = jwt.sign({ user: serializedUser }, process.env.JWT_SECRET);
-    res.json({ jwt: token, user: serializedUser });
+    res.json({ user: serializedUser });
   } catch (err) {
     console.log(err);
     res.json(errorMessageHandler.getError(1001));
