@@ -48,7 +48,7 @@ module.exports = {
         [
           properties.firstName,
           properties.lastName,
-          properties.companyId,
+          properties.locationId,
           properties.email,
           hash,
           properties.isAdmin,
