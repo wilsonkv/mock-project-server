@@ -7,12 +7,18 @@ const serializeUser = require('../serializers/user');
 
 module.exports = {
   all: async () => {
-    const users = (await query('select * from "users"')).rows;
+    const users = (await query(`SELECT 
+                                  USR."id","firstName","lastName","nickName","email","locationId",
+                                  "manager","role","imageUrl","aboutMe","isAdmin", LOC."name" AS location
+                                FROM "users" USR join "locations" LOC on USR."locationId" = LOC."id"
+                                WHERE "isActive" = true`)).rows;
     return users;
   },
 
   authenticate: async credentials => {
-    const user = (await query('select * from "users" where "email" = ($1) and "isActive" = true', [
+    const user = (await query(`SELECT * 
+                                  FROM "users" 
+                                WHERE "email" = ($1) and "isActive" = true`, [
       credentials.email,
     ])).rows[0];
 

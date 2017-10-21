@@ -30,7 +30,8 @@ exports.create = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
   try {
-    res.json(await User.all());
+    const users = await User.all();
+    res.json(users);
   } catch (err) {
     console.log(err);
     res.json(errorMessageHandler.getError(1001));

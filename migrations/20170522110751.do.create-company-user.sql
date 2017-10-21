@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS "users"(
   "nickName"                        VARCHAR(100)      NULL,
   "email"                           VARCHAR(200)      NOT NULL,
   "passwordDigest"                  VARCHAR(100)      NULL,
-  "locationId"                      INT               NULL, 
+  "locationId"                      INT               NOT NULL, 
   "manager"                         VARCHAR(200)      NULL,
   "role"                            VARCHAR(100)      NULL,
   "imageUrl"                        VARCHAR(100)      NULL,
