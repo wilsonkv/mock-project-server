@@ -11,6 +11,10 @@ module.exports = async user => {
       id: location.id,
       name: location.name,
     },
+    nickName: user.nickName,
+    manager: user.manager,
+    role: user.role,
+    aboutMe: user.aboutMe
   };
   return serialized;
 };
