@@ -9,6 +9,8 @@ const User = require('../models/user');
 
 clearDB().then(async () => {
   const location = await Location.create({ name: 'Cochin' });
+  await Location.create({ name: 'Chennai' });
+  await Location.create({ name: 'Bangalore' });
 
   await User.create({
     firstName: 'Tom',
