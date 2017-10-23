@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS "users"(
   "manager"                         VARCHAR(200)      NULL,
   "role"                            VARCHAR(100)      NULL,
   "imageUrl"                        VARCHAR(100)      NULL,
-  "aboutMe"                         VARCHAR(100)      NULL,
+  "aboutMe"                         VARCHAR(2000)     NULL,
   "isAdmin"                         BOOLEAN           NOT NULL DEFAULT FALSE,
   "isActive"                        BOOLEAN           NOT NULL DEFAULT FALSE,
   "createdAt"                       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
