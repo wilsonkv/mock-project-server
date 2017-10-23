@@ -12,6 +12,7 @@ const verifyLoggedInUser = require('./lib/verifyLoggedInUser');
 const index = require('./routes/index');
 const login = require('./routes/login');
 const users = require('./routes/users');
+const locations = require('./routes/locations');
 
 let app = express();
 app.use(cors());
@@ -39,16 +40,17 @@ app.use('/users', users);
 
 app.use(verifyLoggedInUser);
 
+app.use('/locations', locations);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

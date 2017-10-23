@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const errorMessageHandler = require('../messages/handler/errorMessageHandler');
 const serializeUser = require('../serializers/user');
 const User = require('../models/user');
+const mailClient = require('../lib/sendMail');
 const verifyLoggedInUser = require('../lib/verifyLoggedInUser');
 
 exports.create = async (req, res, next) => {
@@ -13,8 +14,14 @@ exports.create = async (req, res, next) => {
       return res.json(user);
     }
     const serializedUser = await serializeUser(user);
-    const token = jwt.sign({ user: serializedUser }, process.env.JWT_SECRET);
-    res.json({ jwt: token, user: serializedUser });
+    //Make it await if you want to verify the mail sent status
+    mailClient.sendMail({
+      to: user.email,
+      subject: 'You are invited',
+      body: `Hello <b>${user.firstName}</b> <br/> welcome aboard!`
+    });
+    
+    res.json({ user: serializedUser });
   } catch (err) {
     console.log(err);
     res.json(errorMessageHandler.getError(1001));
@@ -23,7 +30,8 @@ exports.create = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
   try {
-    res.json(await User.all());
+    const users = await User.all();
+    res.json(users);
   } catch (err) {
     console.log(err);
     res.json(errorMessageHandler.getError(1001));
